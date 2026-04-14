@@ -867,22 +867,23 @@ PENALIZACIONES FITNESS:
             widget.destroy()
         
         style = ttk.Style()
+        style.theme_use('clam')  # Usar tema clam para mejor control de colores
         style.configure("Horario.Treeview", 
                        rowheight=30, 
-                       font=('Arial', 9),
-                       foreground='black',
+                       font=('Arial', 9, 'bold'),
+                       foreground='#000000',
                        background='white',
                        fieldbackground='white',
                        borderwidth=0)
         style.configure("Horario.Treeview.Heading", 
                        font=('Arial', 10, 'bold'),
                        background='#e8e8e8',
-                       foreground='black',
+                       foreground='#000000',
                        borderwidth=0,
                        relief='flat')
         
         style.map('Horario.Treeview',
-                 foreground=[('selected', 'black')],
+                 foreground=[('selected', '#000000'), ('!selected', '#000000')],
                  background=[('selected', '#e8e8e8')])
         
         nombres_puestos_completos = []
@@ -940,8 +941,8 @@ PENALIZACIONES FITNESS:
                 tag = 'dia' if turno == 0 else 'noche'
                 tree.insert('', 'end', values=valores, tags=(tag,))
         
-        tree.tag_configure('dia', background='#FFF8DC', foreground='black')
-        tree.tag_configure('noche', background='#D3D3D3', foreground='black')
+        tree.tag_configure('dia', background='#FFF8DC', foreground='#000000')
+        tree.tag_configure('noche', background='#D3D3D3', foreground='#000000')
         
         # CALCULAR DATOS PARA EL RESUMEN
         horas = self.ag.calcular_horas_trabajadas(cromosoma)
