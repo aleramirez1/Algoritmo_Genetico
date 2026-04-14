@@ -1,0 +1,8 @@
+ID,Tipo,Descripcion,Referencia_Legal,Valor,Sancion
+1,JORNADA_MAXIMA,Jornada maxima semanal,Ley Federal del Trabajo Art. 61,48 horas,Multa
+2,DESCANSO_SEMANAL,Descanso obligatorio semanal,LFT Art. 69,1 dia,Multa
+3,PAGO_DOMINGO,Pago doble por trabajo en domingo,LFT Art. 71,Doble,Multa
+4,HORAS_EXTRA,Pago de horas extras,LFT Art. 66,Doble,Multa
+5,TURNO_NOCTURNO,Jornada nocturna maxima,LFT Art. 61,7 horas,Multa
+6,DESCANSO_ENTRE_JORNADAS,Descanso minimo entre jornadas,LFT Art. 63,8 horas,Multa
+7,SALARIO_MINIMO,Salario minimo general,CONASAMI 2024,248.93 diario,Multa

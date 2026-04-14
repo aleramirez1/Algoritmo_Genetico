@@ -1,0 +1,20 @@
+ID,Categoria,Nombre,Descripcion,Tipo_Dato,Valor_Default,Obligatorio,Editable
+1,VIGILANTES,Numero de Vigilantes,Cantidad total de vigilantes disponibles,Entero,14,Si,Si
+2,VIGILANTES,Disponibilidad,Disponibilidad de cada vigilante por dia,CSV,vigilantes.csv,Si,Si
+3,TURNOS,Numero de Turnos,Cantidad de turnos por dia,Entero,2,Si,No
+4,TURNOS,Duracion Turnos,Horas efectivas por turno,Decimal,10.5,Si,No
+5,TURNOS,Catalogo Turnos,Definicion de turnos,CSV,turnos.csv,Si,Si
+6,PUESTOS,Numero de Puestos,Cantidad de puestos a cubrir,Entero,3,Si,Si
+7,PUESTOS,Catalogo Puestos,Definicion de puestos de vigilancia,CSV,puestos.csv,Si,Si
+8,COBERTURA,Requerimientos,Vigilantes necesarios por turno y puesto,Matriz,3x3,Si,Si
+9,ALGORITMO,Tamaño Poblacion,Numero de individuos en poblacion,Entero,20,Si,Si
+10,ALGORITMO,Probabilidad Cruza,Probabilidad de cruza entre individuos,Decimal,0.85,Si,Si
+11,ALGORITMO,Probabilidad Mutacion,Probabilidad de mutacion de genes,Decimal,0.20,Si,Si
+12,ALGORITMO,Max Generaciones,Numero maximo de generaciones,Entero,100,Si,Si
+13,RESTRICCIONES,Horas Maximas,Horas maximas semanales por vigilante,Decimal,60.0,Si,Si
+14,RESTRICCIONES,Max Turnos Nocturnos,Turnos nocturnos maximos por semana,Entero,3,Si,Si
+15,RESTRICCIONES,Restricciones Individuales,Restricciones por vigilante,CSV,restricciones.csv,No,Si
+16,COSTOS,Pago Turno Normal,Pago por turno Lunes a Sabado,Decimal,316.0,Si,Si
+17,COSTOS,Pago Turno Domingo,Pago por turno en Domingo,Decimal,632.0,Si,Si
+18,COSTOS,Pago Turno Extra,Pago por segundo turno mismo dia,Decimal,632.0,Si,Si
+19,COSTOS,Sueldo Minimo Semanal,Sueldo minimo por vigilante,Decimal,2396.0,Si,Si

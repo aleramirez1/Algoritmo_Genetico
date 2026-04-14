@@ -1,0 +1,8 @@
+ID,Tipo,Descripcion,Valor,Obligatorio
+1,COBERTURA,Todos los puestos deben estar cubiertos en todos los turnos,100%,Si
+2,HORAS_MAXIMAS,Maximo de horas semanales por vigilante,60.0,Si
+3,TURNOS_NOCTURNOS,Maximo de turnos nocturnos por semana,3,Si
+4,DESCANSO,Minimo un dia de descanso por semana,1,Si
+5,ROTACION,Rotacion equitativa de turnos entre vigilantes,Equilibrada,Si
+6,DOBLE_TURNO,Permitir hasta 2 turnos por dia con pago extra,Si,Si
+7,SUELDO_MINIMO,Sueldo minimo semanal por vigilante,2396.0,Si

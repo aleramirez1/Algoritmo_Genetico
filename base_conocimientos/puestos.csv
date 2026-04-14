@@ -1,0 +1,4 @@
+ID,Nombre,Descripcion,Ubicacion,Prioridad
+1,Entrada,Control de acceso principal,Entrada principal,Alta
+2,Salida,Control de salida de personal,Salida principal,Alta
+3,Estacionamiento,Vigilancia de estacionamiento,Area de estacionamiento,Media

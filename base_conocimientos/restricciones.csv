@@ -1,0 +1,41 @@
+Tipo,Descripcion,Valor,Unidad,Penalizacion
+HORARIOS,Turno Dia - Inicio,08:00,hora,N/A
+HORARIOS,Turno Dia - Fin,20:00,hora,N/A
+HORARIOS,Turno Dia - Duracion Efectiva,10.5,horas,N/A
+HORARIOS,Turno Dia - Desayuno Inicio,10:00,hora,N/A
+HORARIOS,Turno Dia - Desayuno Fin,11:00,hora,N/A
+HORARIOS,Turno Dia - Comida Inicio,16:00,hora,N/A
+HORARIOS,Turno Dia - Comida Fin,16:30,hora,N/A
+HORARIOS,Turno Noche - Inicio,20:00,hora,N/A
+HORARIOS,Turno Noche - Fin,08:00,hora,N/A
+HORARIOS,Turno Noche - Duracion Efectiva,10.5,horas,N/A
+HORARIOS,Turno Noche - Desayuno Inicio,22:00,hora,N/A
+HORARIOS,Turno Noche - Desayuno Fin,23:00,hora,N/A
+HORARIOS,Turno Noche - Comida Inicio,02:00,hora,N/A
+HORARIOS,Turno Noche - Comida Fin,02:30,hora,N/A
+RESTRICCION,Maximo turnos por dia por vigilante,2,turnos,Media
+RESTRICCION,Turnos normales por semana,7,turnos,N/A
+RESTRICCION,Horas legales semanales,48,horas,N/A
+RESTRICCION,Horas extras permitidas,12,horas,Media
+RESTRICCION,Maximo turnos nocturnos por semana,3,turnos,Alta
+RESTRICCION,Minimo descanso entre turnos,12,horas,Alta
+RESTRICCION,Cobertura minima requerida,100,%,Critica
+PENALIZACION,Peso cobertura en fitness,1.0,factor,Critica
+PENALIZACION,Peso horas extra en fitness,0.3,factor,Media
+PENALIZACION,Peso balance carga en fitness,0.2,factor,Baja
+PENALIZACION,Peso violaciones en fitness,0.5,factor,Alta
+CONFIGURACION,Dias de planificacion,7,dias,N/A
+CONFIGURACION,Turnos por dia,2,turnos,N/A
+CONFIGURACION,Poblacion minima,10,individuos,N/A
+CONFIGURACION,Poblacion maxima,2000,individuos,N/A
+CONFIGURACION,Generaciones minimas,10,generaciones,N/A
+CONFIGURACION,Generaciones recomendadas,500,generaciones,N/A
+CONFIGURACION,Probabilidad cruza recomendada,0.85,probabilidad,N/A
+CONFIGURACION,Probabilidad mutacion recomendada,0.20,probabilidad,N/A
+SUELDO,Pago por turno Lunes-Sabado,316,MXN,N/A
+SUELDO,Pago por turno Domingo,632,MXN,N/A
+SUELDO,Pago segundo turno mismo dia,632,MXN,N/A
+SUELDO,Sueldo minimo semanal por vigilante,2396,MXN,Critica
+CALIDAD,Fitness excelente minimo,0.9,valor,N/A
+CALIDAD,Fitness bueno minimo,0.7,valor,N/A
+CALIDAD,Fitness mejorable maximo,0.7,valor,N/A
