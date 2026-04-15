@@ -50,9 +50,17 @@ class AplicacionEscritorio:
         frame_principal = tk.Frame(parent, bg='white')
         frame_principal.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
         
-        # COLUMNA ÚNICA: Todos los inputs de configuración
+        # DOS COLUMNAS: Inputs de configuración
         frame_config = tk.Frame(frame_principal, bg='white')
         frame_config.pack(fill=tk.X)
+        
+        # Columna izquierda
+        frame_col_izq = tk.Frame(frame_config, bg='white')
+        frame_col_izq.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 5))
+        
+        # Columna derecha
+        frame_col_der = tk.Frame(frame_config, bg='white')
+        frame_col_der.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(5, 0))
         
         configs = [
             ("Numero de Dias:", "num_dias", 7),
@@ -68,20 +76,29 @@ class AplicacionEscritorio:
         
         self.entries = {}
         
+        # Dividir configs en dos columnas
+        mitad = (len(configs) + 1) // 2
+        
         for i, (label, key, default) in enumerate(configs):
-            frame_row = tk.Frame(frame_config, bg='white')
-            frame_row.pack(fill=tk.X, pady=5)
+            # Determinar en qué columna va
+            if i < mitad:
+                parent_frame = frame_col_izq
+            else:
+                parent_frame = frame_col_der
+            
+            frame_row = tk.Frame(parent_frame, bg='white')
+            frame_row.pack(fill=tk.X, pady=5, anchor='w')
             
             tk.Label(frame_row, text=label, font=('Arial', 10), 
-                    bg='white', width=25, anchor='w').pack(side=tk.LEFT)
+                    bg='white', width=18, anchor='w').pack(side=tk.LEFT)
             
-            entry = tk.Entry(frame_row, font=('Arial', 10), width=15)
+            entry = tk.Entry(frame_row, font=('Arial', 10), width=10)
             entry.insert(0, str(default))
             
             if key == 'num_dias':
                 entry.config(state='readonly', bg='#e0e0e0')
             
-            entry.pack(side=tk.LEFT, padx=10)
+            entry.pack(side=tk.LEFT, padx=2)
             
             self.entries[key] = entry
         
@@ -129,42 +146,112 @@ class AplicacionEscritorio:
         
         tk.Label(frame_costos, text="", bg='#e8f5e9').pack(pady=2)
         
-        # SECCION DE CARGA DE ARCHIVOS
+        # SECCION DE CARGA DE ARCHIVOS - BASE DE CONOCIMIENTO
         frame_archivos = tk.Frame(frame_principal, bg='#e3f2fd', relief=tk.RAISED, borderwidth=2)
         frame_archivos.pack(fill=tk.X, pady=(5, 10))
         
-        tk.Label(frame_archivos, text="ARCHIVOS DE ENTRADA:", font=('Arial', 9, 'bold'), 
+        tk.Label(frame_archivos, text="BASE DE CONOCIMIENTO:", font=('Arial', 9, 'bold'), 
                 bg='#e3f2fd', fg='#2c3e50').pack(pady=5)
         
         # Input para archivo de vigilantes
         frame_vigilantes = tk.Frame(frame_archivos, bg='#e3f2fd')
-        frame_vigilantes.pack(fill=tk.X, padx=10, pady=3)
+        frame_vigilantes.pack(fill=tk.X, padx=10, pady=2)
         
-        tk.Label(frame_vigilantes, text="Vigilantes CSV:", bg='#e3f2fd', 
-                font=('Arial', 9), width=15, anchor='w').pack(side=tk.LEFT)
+        tk.Label(frame_vigilantes, text="Vigilantes:", bg='#e3f2fd', 
+                font=('Arial', 9), width=18, anchor='w').pack(side=tk.LEFT)
         
-        self.entry_archivo_vigilantes = tk.Entry(frame_vigilantes, font=('Arial', 9), width=30)
+        self.entry_archivo_vigilantes = tk.Entry(frame_vigilantes, font=('Arial', 8), width=35)
         self.entry_archivo_vigilantes.insert(0, "base_conocimientos/vigilantes.csv")
-        self.entry_archivo_vigilantes.pack(side=tk.LEFT, padx=5)
+        self.entry_archivo_vigilantes.pack(side=tk.LEFT, padx=3)
         
-        tk.Button(frame_vigilantes, text="...", command=self.seleccionar_archivo_vigilantes,
-                 font=('Arial', 9), bg='#90caf9', fg='white', cursor='hand2').pack(side=tk.LEFT)
+        tk.Button(frame_vigilantes, text="📁", command=self.seleccionar_archivo_vigilantes,
+                 font=('Arial', 8), bg='#90caf9', fg='white', cursor='hand2', width=3).pack(side=tk.LEFT)
+        
+        # Input para archivo de turnos
+        frame_turnos = tk.Frame(frame_archivos, bg='#e3f2fd')
+        frame_turnos.pack(fill=tk.X, padx=10, pady=2)
+        
+        tk.Label(frame_turnos, text="Turnos:", bg='#e3f2fd', 
+                font=('Arial', 9), width=18, anchor='w').pack(side=tk.LEFT)
+        
+        self.entry_archivo_turnos = tk.Entry(frame_turnos, font=('Arial', 8), width=35)
+        self.entry_archivo_turnos.insert(0, "base_conocimientos/turnos.csv")
+        self.entry_archivo_turnos.pack(side=tk.LEFT, padx=3)
+        
+        tk.Button(frame_turnos, text="📁", command=self.seleccionar_archivo_turnos,
+                 font=('Arial', 8), bg='#90caf9', fg='white', cursor='hand2', width=3).pack(side=tk.LEFT)
+        
+        # Input para archivo de puestos
+        frame_puestos = tk.Frame(frame_archivos, bg='#e3f2fd')
+        frame_puestos.pack(fill=tk.X, padx=10, pady=2)
+        
+        tk.Label(frame_puestos, text="Puestos:", bg='#e3f2fd', 
+                font=('Arial', 9), width=18, anchor='w').pack(side=tk.LEFT)
+        
+        self.entry_archivo_puestos = tk.Entry(frame_puestos, font=('Arial', 8), width=35)
+        self.entry_archivo_puestos.insert(0, "base_conocimientos/puestos.csv")
+        self.entry_archivo_puestos.pack(side=tk.LEFT, padx=3)
+        
+        tk.Button(frame_puestos, text="📁", command=self.seleccionar_archivo_puestos,
+                 font=('Arial', 8), bg='#90caf9', fg='white', cursor='hand2', width=3).pack(side=tk.LEFT)
+        
+        # Input para archivo de políticas
+        frame_politicas = tk.Frame(frame_archivos, bg='#e3f2fd')
+        frame_politicas.pack(fill=tk.X, padx=10, pady=2)
+        
+        tk.Label(frame_politicas, text="Políticas Empresa:", bg='#e3f2fd', 
+                font=('Arial', 9), width=18, anchor='w').pack(side=tk.LEFT)
+        
+        self.entry_archivo_politicas = tk.Entry(frame_politicas, font=('Arial', 8), width=35)
+        self.entry_archivo_politicas.insert(0, "base_conocimientos/politicas_empresa.csv")
+        self.entry_archivo_politicas.pack(side=tk.LEFT, padx=3)
+        
+        tk.Button(frame_politicas, text="📁", command=self.seleccionar_archivo_politicas,
+                 font=('Arial', 8), bg='#90caf9', fg='white', cursor='hand2', width=3).pack(side=tk.LEFT)
+        
+        # Input para archivo de normativas
+        frame_normativas = tk.Frame(frame_archivos, bg='#e3f2fd')
+        frame_normativas.pack(fill=tk.X, padx=10, pady=2)
+        
+        tk.Label(frame_normativas, text="Normativas Laborales:", bg='#e3f2fd', 
+                font=('Arial', 9), width=18, anchor='w').pack(side=tk.LEFT)
+        
+        self.entry_archivo_normativas = tk.Entry(frame_normativas, font=('Arial', 8), width=35)
+        self.entry_archivo_normativas.insert(0, "base_conocimientos/normativas_laborales.csv")
+        self.entry_archivo_normativas.pack(side=tk.LEFT, padx=3)
+        
+        tk.Button(frame_normativas, text="📁", command=self.seleccionar_archivo_normativas,
+                 font=('Arial', 8), bg='#90caf9', fg='white', cursor='hand2', width=3).pack(side=tk.LEFT)
         
         # Input para archivo de restricciones
         frame_restricciones_file = tk.Frame(frame_archivos, bg='#e3f2fd')
-        frame_restricciones_file.pack(fill=tk.X, padx=10, pady=3)
+        frame_restricciones_file.pack(fill=tk.X, padx=10, pady=2)
         
-        tk.Label(frame_restricciones_file, text="Restricciones CSV:", bg='#e3f2fd', 
-                font=('Arial', 9), width=15, anchor='w').pack(side=tk.LEFT)
+        tk.Label(frame_restricciones_file, text="Restricciones:", bg='#e3f2fd', 
+                font=('Arial', 9), width=18, anchor='w').pack(side=tk.LEFT)
         
-        self.entry_archivo_restricciones = tk.Entry(frame_restricciones_file, font=('Arial', 9), width=30)
+        self.entry_archivo_restricciones = tk.Entry(frame_restricciones_file, font=('Arial', 8), width=35)
         self.entry_archivo_restricciones.insert(0, "base_conocimientos/restricciones.csv")
-        self.entry_archivo_restricciones.pack(side=tk.LEFT, padx=5)
+        self.entry_archivo_restricciones.pack(side=tk.LEFT, padx=3)
         
-        tk.Button(frame_restricciones_file, text="...", command=self.seleccionar_archivo_restricciones,
-                 font=('Arial', 9), bg='#90caf9', fg='white', cursor='hand2').pack(side=tk.LEFT)
+        tk.Button(frame_restricciones_file, text="📁", command=self.seleccionar_archivo_restricciones,
+                 font=('Arial', 8), bg='#90caf9', fg='white', cursor='hand2', width=3).pack(side=tk.LEFT)
         
-        tk.Label(frame_archivos, text="", bg='#e3f2fd').pack(pady=5)
+        # Input para archivo de entradas del sistema
+        frame_entradas = tk.Frame(frame_archivos, bg='#e3f2fd')
+        frame_entradas.pack(fill=tk.X, padx=10, pady=2)
+        
+        tk.Label(frame_entradas, text="Entradas Sistema:", bg='#e3f2fd', 
+                font=('Arial', 9), width=18, anchor='w').pack(side=tk.LEFT)
+        
+        self.entry_archivo_entradas = tk.Entry(frame_entradas, font=('Arial', 8), width=35)
+        self.entry_archivo_entradas.insert(0, "base_conocimientos/entradas_sistema.csv")
+        self.entry_archivo_entradas.pack(side=tk.LEFT, padx=3)
+        
+        tk.Button(frame_entradas, text="📁", command=self.seleccionar_archivo_entradas,
+                 font=('Arial', 8), bg='#90caf9', fg='white', cursor='hand2', width=3).pack(side=tk.LEFT)
+        
+        tk.Label(frame_archivos, text="", bg='#e3f2fd').pack(pady=3)
         
         # Boton para cargar y ejecutar
         self.btn_ejecutar_todo = tk.Button(frame_archivos, text="CARGAR Y EJECUTAR", 
@@ -1519,6 +1606,54 @@ PENALIZACIONES FITNESS:
             self.entry_archivo_vigilantes.delete(0, tk.END)
             self.entry_archivo_vigilantes.insert(0, archivo)
     
+    def seleccionar_archivo_turnos(self):
+        archivo = filedialog.askopenfilename(
+            title="Seleccionar archivo de turnos CSV",
+            filetypes=[("CSV files", "*.csv"), ("All files", "*.*")],
+            initialdir="base_conocimientos",
+            initialfile="turnos.csv"
+        )
+        
+        if archivo:
+            self.entry_archivo_turnos.delete(0, tk.END)
+            self.entry_archivo_turnos.insert(0, archivo)
+    
+    def seleccionar_archivo_puestos(self):
+        archivo = filedialog.askopenfilename(
+            title="Seleccionar archivo de puestos CSV",
+            filetypes=[("CSV files", "*.csv"), ("All files", "*.*")],
+            initialdir="base_conocimientos",
+            initialfile="puestos.csv"
+        )
+        
+        if archivo:
+            self.entry_archivo_puestos.delete(0, tk.END)
+            self.entry_archivo_puestos.insert(0, archivo)
+    
+    def seleccionar_archivo_politicas(self):
+        archivo = filedialog.askopenfilename(
+            title="Seleccionar archivo de políticas CSV",
+            filetypes=[("CSV files", "*.csv"), ("All files", "*.*")],
+            initialdir="base_conocimientos",
+            initialfile="politicas_empresa.csv"
+        )
+        
+        if archivo:
+            self.entry_archivo_politicas.delete(0, tk.END)
+            self.entry_archivo_politicas.insert(0, archivo)
+    
+    def seleccionar_archivo_normativas(self):
+        archivo = filedialog.askopenfilename(
+            title="Seleccionar archivo de normativas CSV",
+            filetypes=[("CSV files", "*.csv"), ("All files", "*.*")],
+            initialdir="base_conocimientos",
+            initialfile="normativas_laborales.csv"
+        )
+        
+        if archivo:
+            self.entry_archivo_normativas.delete(0, tk.END)
+            self.entry_archivo_normativas.insert(0, archivo)
+    
     def seleccionar_archivo_restricciones(self):
         archivo = filedialog.askopenfilename(
             title="Seleccionar archivo de restricciones CSV",
@@ -1531,108 +1666,186 @@ PENALIZACIONES FITNESS:
             self.entry_archivo_restricciones.delete(0, tk.END)
             self.entry_archivo_restricciones.insert(0, archivo)
     
+    def seleccionar_archivo_entradas(self):
+        archivo = filedialog.askopenfilename(
+            title="Seleccionar archivo de entradas del sistema CSV",
+            filetypes=[("CSV files", "*.csv"), ("All files", "*.*")],
+            initialdir="base_conocimientos",
+            initialfile="entradas_sistema.csv"
+        )
+        
+        if archivo:
+            self.entry_archivo_entradas.delete(0, tk.END)
+            self.entry_archivo_entradas.insert(0, archivo)
+    
     def cargar_y_ejecutar(self):
-        # Obtener rutas de los archivos
-        archivo_vigilantes = self.entry_archivo_vigilantes.get().strip()
-        archivo_restricciones = self.entry_archivo_restricciones.get().strip()
+        # Obtener rutas de todos los archivos
+        archivos = {
+            'vigilantes': self.entry_archivo_vigilantes.get().strip(),
+            'turnos': self.entry_archivo_turnos.get().strip(),
+            'puestos': self.entry_archivo_puestos.get().strip(),
+            'politicas': self.entry_archivo_politicas.get().strip(),
+            'normativas': self.entry_archivo_normativas.get().strip(),
+            'restricciones': self.entry_archivo_restricciones.get().strip(),
+            'entradas': self.entry_archivo_entradas.get().strip()
+        }
         
-        # Validar que se hayan especificado archivos
-        if not archivo_vigilantes:
-            messagebox.showerror("Error", "Por favor especifica el archivo de vigilantes")
-            return
+        # Validar que se hayan especificado TODOS los archivos (todos son obligatorios)
+        nombres_archivos = {
+            'vigilantes': 'Vigilantes',
+            'turnos': 'Turnos',
+            'puestos': 'Puestos',
+            'politicas': 'Políticas Empresa',
+            'normativas': 'Normativas Laborales',
+            'restricciones': 'Restricciones',
+            'entradas': 'Entradas Sistema'
+        }
         
-        if not archivo_restricciones:
-            messagebox.showerror("Error", "Por favor especifica el archivo de restricciones")
-            return
-        
-        # Validar que los archivos existan
-        if not os.path.exists(archivo_vigilantes):
-            messagebox.showerror("Error", f"El archivo de vigilantes no existe:\n{archivo_vigilantes}")
-            return
-        
-        if not os.path.exists(archivo_restricciones):
-            messagebox.showerror("Error", f"El archivo de restricciones no existe:\n{archivo_restricciones}")
-            return
+        for clave, nombre in nombres_archivos.items():
+            if not archivos[clave]:
+                messagebox.showerror("Error", f"Por favor especifica el archivo de {nombre}")
+                return
+            if not os.path.exists(archivos[clave]):
+                messagebox.showerror("Error", f"El archivo de {nombre} no existe:\n{archivos[clave]}")
+                return
         
         try:
             import csv
             
-            # CARGAR VIGILANTES
-            self.log(f"\n{'='*60}")
-            self.log(f"CARGANDO VIGILANTES: {os.path.basename(archivo_vigilantes)}")
-            self.log(f"{'='*60}\n")
+            self.log(f"\n{'='*70}")
+            self.log(f"CARGANDO BASE DE CONOCIMIENTO")
+            self.log(f"{'='*70}\n")
             
-            with open(archivo_vigilantes, 'r', encoding='utf-8') as f:
-                reader = csv.reader(f)
-                filas_vigilantes = list(reader)
+            # CARGAR VIGILANTES
+            self.log(f"[1/6] VIGILANTES: {os.path.basename(archivos['vigilantes'])}")
+            with open(archivos['vigilantes'], 'r', encoding='utf-8') as f:
+                filas_vigilantes = list(csv.reader(f))
             
             self.datos_vigilantes = []
             headers = filas_vigilantes[0] if len(filas_vigilantes) > 0 else []
             
-            self.log(f"Total vigilantes: {len(filas_vigilantes)-1}\n")
-            self.log("Vigilantes cargados:")
-            
-            for i, fila in enumerate(filas_vigilantes):
-                if i == 0:
-                    self.log(f"  {', '.join(fila)}")
-                    self.log("  " + "-"*50)
-                elif i >= 1:
-                    vigilante_dict = {}
-                    for j, header in enumerate(headers):
-                        if j < len(fila):
-                            vigilante_dict[header] = fila[j]
-                    self.datos_vigilantes.append(vigilante_dict)
-                    
-                    if i <= 5:
-                        nombre = vigilante_dict.get('Nombre', 'N/A')
-                        apellido = vigilante_dict.get('Apellido', '')
-                        turno = vigilante_dict.get('Turno_Preferido', 'N/A')
-                        self.log(f"  {nombre} {apellido} - Turno: {turno}")
-            
-            if len(filas_vigilantes) > 6:
-                self.log(f"  ... y {len(filas_vigilantes)-6} mas")
+            for i, fila in enumerate(filas_vigilantes[1:], 1):
+                vigilante_dict = {}
+                for j, header in enumerate(headers):
+                    if j < len(fila):
+                        vigilante_dict[header] = fila[j]
+                self.datos_vigilantes.append(vigilante_dict)
             
             num_vigilantes = len(filas_vigilantes) - 1
             self.entries['num_vigilantes'].delete(0, tk.END)
             self.entries['num_vigilantes'].insert(0, str(num_vigilantes))
-            self.log(f"\nNumero de vigilantes actualizado: {num_vigilantes}")
+            self.log(f"  ✓ {num_vigilantes} vigilantes cargados")
+            
+            # CARGAR TURNOS
+            self.log(f"\n[2/6] TURNOS: {os.path.basename(archivos['turnos'])}")
+            with open(archivos['turnos'], 'r', encoding='utf-8') as f:
+                filas_turnos = list(csv.reader(f))
+            
+            self.datos_turnos = []
+            headers_turnos = filas_turnos[0] if len(filas_turnos) > 0 else []
+            
+            for i, fila in enumerate(filas_turnos[1:], 1):
+                turno_dict = {}
+                for j, header in enumerate(headers_turnos):
+                    if j < len(fila):
+                        turno_dict[header] = fila[j]
+                self.datos_turnos.append(turno_dict)
+            
+            num_turnos = len(filas_turnos) - 1
+            self.entries['num_turnos'].delete(0, tk.END)
+            self.entries['num_turnos'].insert(0, str(num_turnos))
+            self.log(f"  ✓ {num_turnos} turnos cargados")
+            
+            # CARGAR PUESTOS
+            self.log(f"\n[3/6] PUESTOS: {os.path.basename(archivos['puestos'])}")
+            with open(archivos['puestos'], 'r', encoding='utf-8') as f:
+                filas_puestos = list(csv.reader(f))
+            
+            self.datos_puestos = []
+            headers_puestos = filas_puestos[0] if len(filas_puestos) > 0 else []
+            
+            for i, fila in enumerate(filas_puestos[1:], 1):
+                puesto_dict = {}
+                for j, header in enumerate(headers_puestos):
+                    if j < len(fila):
+                        puesto_dict[header] = fila[j]
+                self.datos_puestos.append(puesto_dict)
+            
+            num_puestos = len(filas_puestos) - 1
+            self.entries['num_puestos'].delete(0, tk.END)
+            self.entries['num_puestos'].insert(0, str(num_puestos))
+            self.log(f"  ✓ {num_puestos} puestos cargados")
+            
+            # CARGAR POLITICAS (ahora obligatorio)
+            self.log(f"\n[4/7] POLITICAS: {os.path.basename(archivos['politicas'])}")
+            with open(archivos['politicas'], 'r', encoding='utf-8') as f:
+                filas_politicas = list(csv.reader(f))
+            
+            self.datos_politicas = []
+            headers_politicas = filas_politicas[0] if len(filas_politicas) > 0 else []
+            
+            for i, fila in enumerate(filas_politicas[1:], 1):
+                politica_dict = {}
+                for j, header in enumerate(headers_politicas):
+                    if j < len(fila):
+                        politica_dict[header] = fila[j]
+                self.datos_politicas.append(politica_dict)
+            
+            self.log(f"  ✓ {len(filas_politicas)-1} políticas cargadas")
+            
+            # CARGAR NORMATIVAS (ahora obligatorio)
+            self.log(f"\n[5/7] NORMATIVAS: {os.path.basename(archivos['normativas'])}")
+            with open(archivos['normativas'], 'r', encoding='utf-8') as f:
+                filas_normativas = list(csv.reader(f))
+            
+            self.datos_normativas = []
+            headers_normativas = filas_normativas[0] if len(filas_normativas) > 0 else []
+            
+            for i, fila in enumerate(filas_normativas[1:], 1):
+                normativa_dict = {}
+                for j, header in enumerate(headers_normativas):
+                    if j < len(fila):
+                        normativa_dict[header] = fila[j]
+                self.datos_normativas.append(normativa_dict)
+            
+            self.log(f"  ✓ {len(filas_normativas)-1} normativas cargadas")
             
             # CARGAR RESTRICCIONES
-            self.log(f"\n{'='*60}")
-            self.log(f"CARGANDO RESTRICCIONES: {os.path.basename(archivo_restricciones)}")
-            self.log(f"{'='*60}\n")
-            
-            with open(archivo_restricciones, 'r', encoding='utf-8') as f:
-                reader = csv.reader(f)
-                filas_restricciones = list(reader)
+            self.log(f"\n[6/7] RESTRICCIONES: {os.path.basename(archivos['restricciones'])}")
+            with open(archivos['restricciones'], 'r', encoding='utf-8') as f:
+                filas_restricciones = list(csv.reader(f))
             
             self.datos_restricciones = []
             headers_rest = filas_restricciones[0] if len(filas_restricciones) > 0 else []
             
-            self.log(f"Total restricciones: {len(filas_restricciones)-1}\n")
-            self.log("Restricciones cargadas:\n")
+            for i, fila in enumerate(filas_restricciones[1:], 1):
+                restriccion_dict = {}
+                for j, header in enumerate(headers_rest):
+                    if j < len(fila):
+                        restriccion_dict[header] = fila[j]
+                self.datos_restricciones.append(restriccion_dict)
             
-            for i, fila in enumerate(filas_restricciones):
-                if i == 0:
-                    self.log(f"  {', '.join(fila)}")
-                    self.log("  " + "-"*50)
-                elif i >= 1:
-                    restriccion_dict = {}
-                    for j, header in enumerate(headers_rest):
-                        if j < len(fila):
-                            restriccion_dict[header] = fila[j]
-                    self.datos_restricciones.append(restriccion_dict)
-                    
-                    if i <= 10:
-                        tipo = restriccion_dict.get('Tipo', '')
-                        desc = restriccion_dict.get('Descripcion', '')
-                        valor = restriccion_dict.get('Valor', '')
-                        self.log(f"  {tipo}: {desc} = {valor}")
+            self.log(f"  ✓ {len(filas_restricciones)-1} restricciones cargadas")
             
-            if len(filas_restricciones) > 11:
-                self.log(f"  ... y {len(filas_restricciones)-11} mas")
+            # CARGAR ENTRADAS SISTEMA
+            self.log(f"\n[7/7] ENTRADAS SISTEMA: {os.path.basename(archivos['entradas'])}")
+            with open(archivos['entradas'], 'r', encoding='utf-8') as f:
+                filas_entradas = list(csv.reader(f))
+            
+            self.datos_entradas = []
+            headers_entradas = filas_entradas[0] if len(filas_entradas) > 0 else []
+            
+            for i, fila in enumerate(filas_entradas[1:], 1):
+                entrada_dict = {}
+                for j, header in enumerate(headers_entradas):
+                    if j < len(fila):
+                        entrada_dict[header] = fila[j]
+                self.datos_entradas.append(entrada_dict)
+            
+            self.log(f"  ✓ {len(filas_entradas)-1} entradas cargadas")
             
             # Aplicar restricciones a los campos
+            self.log(f"\nAplicando configuraciones...")
             for restriccion in self.datos_restricciones:
                 tipo = restriccion.get('Tipo', '').upper()
                 desc = restriccion.get('Descripcion', '').lower()
@@ -1643,47 +1856,38 @@ PENALIZACIONES FITNESS:
                         if 'horas' in desc and 'maximas' in desc:
                             self.entries['horas_max'].delete(0, tk.END)
                             self.entries['horas_max'].insert(0, valor)
-                            self.log(f"\n  Horas maximas actualizado: {valor}")
-                        
                         elif 'turnos nocturnos' in desc:
                             self.entries['max_turnos_nocturnos'].delete(0, tk.END)
                             self.entries['max_turnos_nocturnos'].insert(0, valor)
-                            self.log(f"  Max turnos nocturnos actualizado: {valor}")
                     
                     elif tipo == 'CONFIGURACION':
                         if 'generaciones' in desc and 'recomendadas' in desc:
                             self.entries['max_generaciones'].delete(0, tk.END)
                             self.entries['max_generaciones'].insert(0, valor)
-                            self.log(f"  Max generaciones actualizado: {valor}")
                         elif 'probabilidad cruza' in desc:
                             self.entries['prob_cruza'].delete(0, tk.END)
                             self.entries['prob_cruza'].insert(0, valor)
-                            self.log(f"  Probabilidad cruza actualizado: {valor}")
                         elif 'probabilidad mutacion' in desc:
                             self.entries['prob_mutacion'].delete(0, tk.END)
                             self.entries['prob_mutacion'].insert(0, valor)
-                            self.log(f"  Probabilidad mutacion actualizado: {valor}")
                     
                     elif tipo == 'SUELDO':
                         if 'turno' in desc and ('lunes' in desc.lower() or 'sabado' in desc.lower()):
                             self.entry_pago_dia.delete(0, tk.END)
                             self.entry_pago_dia.insert(0, valor)
-                            self.log(f"  Pago por turno (Lun-Sab) actualizado: {valor}")
                         elif 'domingo' in desc.lower():
                             self.entry_pago_domingo.delete(0, tk.END)
                             self.entry_pago_domingo.insert(0, valor)
-                            self.log(f"  Pago turno Domingo actualizado: {valor}")
                         elif 'segundo' in desc.lower() or 'mismo dia' in desc.lower():
                             self.entry_pago_dia_extra.delete(0, tk.END)
                             self.entry_pago_dia_extra.insert(0, valor)
-                            self.log(f"  Pago 2do turno actualizado: {valor}")
                 
                 except Exception as e:
-                    self.log(f"  Error al aplicar restriccion: {str(e)}")
+                    pass
             
-            self.log(f"\n{'='*60}")
-            self.log("ARCHIVOS CARGADOS CORRECTAMENTE")
-            self.log(f"{'='*60}\n")
+            self.log(f"\n{'='*70}")
+            self.log(f"BASE DE CONOCIMIENTO CARGADA CORRECTAMENTE")
+            self.log(f"{'='*70}\n")
             
             # Ejecutar el algoritmo
             self.ejecutar_algoritmo()
